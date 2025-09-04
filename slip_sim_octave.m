@@ -12,22 +12,6 @@ param.x0 = 0.0;
 param.gamma = 0.0;
 param.phaseflag = 0;
 
-y0 = 1.0;
-v0 = 7.0;
-u0 = [0.0, y0, v0, 0.0];
-param.gamma = pi/6;
-dt = 1e-2;
-tspan = [0.0, 1.0];
-
-[tout, uout] = RK4(u0, param, dt, tspan);
-
-% plot
-figure;
-plot(uout(:,1), uout(:,2), 'b-');
-axis equal;
-xlabel('x (m)');
-ylabel('y (m)');
-title('SLIP model simulation');
 
 function du = eom(u, p)
     % SLIP model dynamics
@@ -100,3 +84,21 @@ function [tout, uout] =  RK4(u, p, dt, tspan)
         end
     end
 end
+
+y0 = 1.0;
+v0 = 7.0;
+u0 = [0.0, y0, v0, 0.0];
+param.gamma = pi/6;
+dt = 1e-2;
+tspan = [0.0, 1.0];
+
+[tout, uout] = RK4(u0, param, dt, tspan);
+
+% plot
+figure;
+plot(uout(:,1), uout(:,2), 'b-');
+axis equal;
+xlabel('x (m)');
+ylabel('y (m)');
+title('SLIP model simulation');
+
