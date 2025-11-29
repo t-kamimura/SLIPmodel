@@ -32,7 +32,7 @@ end
 
 function [tout, yout] = RK4(y0, dt, tend)
   % 4次のルンゲクッタ法
-  t = 0.0; 
+  t = 0.0;
   y = y0;
   tout(1) = t;
   yout(1,:) = y;
@@ -74,7 +74,28 @@ ylabel("x, v","fontsize",12)
 legend({"x", "v"},"fontsize",12)
 
 % 解析解の計算
-x_anal = analytical(tout, y0);
+x_analy = analytical(tout, y0);
 hold on
-plot(tout, x_anal, "r-","linewidth",1)
+plot(tout, x_analy, "r-","linewidth",1)
 legend({"x (num)", "v (num)", "x (ana)"},"fontsize",12)
+
+% 誤差の計算
+dtset = [1e-4, 1e-3, 1e-2, 1e-1, 1];
+figure
+for i_dt = 1:length(dtset)
+  tend = dtset(i_dt);
+  [tout1, yout1] = Eular(y0, dtset(i_dt), tend);
+  [tout2, yout2] = RK4(y0, dtset(i_dt), tend);
+  x_analy = analytical(tout1, y0);
+  error1(i_dt) = abs(yout1(end,1) - x_analy(end));
+  error2(i_dt) = abs(yout2(end,1) - x_analy(end));
+end
+loglog(dtset, error1, "+r", "Displayname", "Eular")
+hold on
+loglog(dtset, error2, "+b", "Displayname", "RK4")
+hold on
+for i = 1:5
+  orderset = dtset.^i;
+  loglog(dtset, orderset, "Displayname", num2str(i))
+end
+legend()
