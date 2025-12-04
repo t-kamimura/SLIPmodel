@@ -80,7 +80,7 @@ plot(tout, x_analy, "r-","linewidth",1)
 legend({"x (num)", "v (num)", "x (ana)"},"fontsize",12)
 
 % 誤差の計算
-dtset = [1e-4, 1e-3, 1e-2, 1e-1];
+dtset = [1e-4, 1e-3, 1e-2, 1e-1, 1];
 figure
 for i_dt = 1:length(dtset)
   tend = dtset(i_dt);
@@ -96,6 +96,6 @@ loglog(dtset, error2, "+b", "Displayname", "RK4")
 hold on
 for i = 1:5
   orderset = dtset.^i;
-  loglog(dtset, orderset, '--', "Displayname", sprintf('dt^{%d}', i))
+  loglog(dtset, orderset, "Displayname", num2str(i))
 end
-legend('location','best')
+legend()
