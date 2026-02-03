@@ -45,7 +45,7 @@ def RK4(y0, dt, tend):
 # 初期値、刻み幅、シミュレーション時間の定義
 y0 = np.array([0.1, 0.0])
 dt = 1e-2
-tend = 20.0
+tend = 10.0
 
 # 数値積分の実行
 tout, yout = RK4(y0, dt, tend)
